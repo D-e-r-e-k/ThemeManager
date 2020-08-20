@@ -1,3 +1,4 @@
+//Branching Test
 // This plugin will open a modal to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
