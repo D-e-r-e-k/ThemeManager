@@ -1,4 +1,5 @@
-<h2>Recolor Helper</h2>
+<h2>Passing Message Test</h2>
+<p id="currentTheme">Current Theme: </p>
 <!-- <p>Count: <input id="count" value="5"></p>
 <button id="create">Create</button>
 <button id="cancel">Cancel</button> -->
@@ -27,5 +28,13 @@ document.getElementById('light').onclick = () => {
 
 document.getElementById('dark').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'dark' } }, '*');
+}
+
+onmessage = (msg) => {
+  console.log("received a msg: " + msg.data.pluginMessage.type);
+  if (msg.data.pluginMessage.type === "test") {
+    console.log("test");
+    document.getElementById("currentTheme").innerText = "Current Theme: Light";
+  }
 }
 </script>

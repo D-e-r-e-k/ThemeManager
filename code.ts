@@ -1,4 +1,3 @@
-//Branching Test
 // This plugin will open a modal to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
@@ -28,7 +27,7 @@ for (let i of source.paints) {
   return result;
 }
 
-let storeLocalPaintStyles = function(name: string): void {
+let getLocalPaintStyles = function(name: string): void {
   let localPaints: PaintStyle[] = figma.getLocalPaintStyles();
   let result: string = "[";
   for (let i of localPaints) {
@@ -66,7 +65,7 @@ figma.ui.onmessage = msg => {
   // }
 
   if (msg.type === 'saveCurrent') {
-    storeLocalPaintStyles(figma.root.id);
+    getLocalPaintStyles(figma.root.id);
     console.log(TOPOSDARK);
     
   }
@@ -84,6 +83,7 @@ figma.ui.onmessage = msg => {
   }
 
   if (msg.type === 'light') {
+    figma.ui.postMessage({type: "test"});
     console.log("light mode called");
     let localPaints: PaintStyle[] = figma.getLocalPaintStyles();
     for(let i of localPaints) {

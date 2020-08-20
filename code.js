@@ -19,7 +19,7 @@ let stringifyPaintStyle = function (source) {
     result += "]}";
     return result;
 };
-let storeLocalPaintStyles = function (name) {
+let getLocalPaintStyles = function (name) {
     let localPaints = figma.getLocalPaintStyles();
     let result = "[";
     for (let i of localPaints) {
@@ -49,7 +49,7 @@ figma.ui.onmessage = msg => {
     //   figma.viewport.scrollAndZoomIntoView(nodes);
     // }
     if (msg.type === 'saveCurrent') {
-        storeLocalPaintStyles(figma.root.id);
+        getLocalPaintStyles(figma.root.id);
         console.log(TOPOSDARK);
     }
     if (msg.type === 'dark') {
@@ -64,6 +64,7 @@ figma.ui.onmessage = msg => {
         }
     }
     if (msg.type === 'light') {
+        figma.ui.postMessage({ type: "test" });
         console.log("light mode called");
         let localPaints = figma.getLocalPaintStyles();
         for (let i of localPaints) {
