@@ -1,0 +1,7 @@
+{
+  "name": "Recolor Helper",
+  "id": "877698871356754847",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}

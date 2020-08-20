@@ -1,0 +1,31 @@
+<h2>Recolor Helper</h2>
+<!-- <p>Count: <input id="count" value="5"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button> -->
+<!-- <button id="saveCurrent">log Current Fill Styles</button> -->
+<button id="light">Light Mode</button>
+<button id="dark">Dark Mode</button>
+<script>
+
+// document.getElementById('create').onclick = () => {
+//   const textbox = document.getElementById('count');
+//   const count = parseInt(textbox.value, 10);
+//   parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
+// }
+
+// document.getElementById('cancel').onclick = () => {
+//   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+// }
+
+// document.getElementById('saveCurrent').onclick = () => {
+//   parent.postMessage({ pluginMessage: { type: 'saveCurrent' } }, '*');
+// }
+
+document.getElementById('light').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'light' } }, '*');
+}
+
+document.getElementById('dark').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'dark' } }, '*');
+}
+</script>
