@@ -1,11 +1,19 @@
-<h2>Passing Message Test</h2>
-<p id="currentTheme">Current Theme: </p>
-<!-- <p>Count: <input id="count" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button> -->
-<!-- <button id="saveCurrent">log Current Fill Styles</button> -->
-<button id="light">Light Mode</button>
-<button id="dark">Dark Mode</button>
+<h2>No Hardcode Prototype</h2>
+
+<button id="saveCurrent">Save Current Theme</button>
+<input type="text" id="themeName">
+<p id="savedThemes">Saved Themes </p>
+
+<div id="themes">
+  <p id="loading">Loading...</p>
+</div>
+
+<p id="importExport">Import&Export Themes</p>
+<input type="text" id="themesJSON">
+<button id="saveToClipboard">Save Themes to Clipboard</button>
+<input type="text" id="importThemes">
+<button id="importFromClipboard">Import Themes from Clipboard</button>
+
 <script>
 
 // document.getElementById('create').onclick = () => {
@@ -17,24 +25,81 @@
 // document.getElementById('cancel').onclick = () => {
 //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
 // }
+let themes = "{}";
 
-// document.getElementById('saveCurrent').onclick = () => {
-//   parent.postMessage({ pluginMessage: { type: 'saveCurrent' } }, '*');
-// }
-
-document.getElementById('light').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'light' } }, '*');
+document.getElementById("saveCurrent").onclick = () => {
+  let themeName = document.getElementById("themeName").value;
+  parent.postMessage( { pluginMessage: { type: 'saveCurrent', name: themeName} }, '*');
 }
 
-document.getElementById('dark').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'dark' } }, '*');
+document.getElementById("saveToClipboard").onclick = () => {
+  document.getElementById("themesJSON").value = JSON.stringify(themes);
+  let source = document.getElementById("themesJSON");
+  source.select();
+  document.execCommand("copy");
 }
+
+document.getElementById("importFromClipboard").onclick = () => {
+  let source = document.getElementById("importThemes").value;
+  parent.postMessage( { pluginMessage: { type: 'importThemes', value: source} }, '*');
+}
+
+let themeBtnOnclick = () => {
+  let targetButton = event.target;
+  parent.postMessage({ pluginMessage: { type: targetButton.class, name: targetButton.parentElement.id } }, '*');
+  //console.log("theme clicked");
+  //console.log("theme id: " + event.target.id);
+}
+
+
+let loadThemes = (msg) => {
+  let parent = document.getElementById("themes");
+  themes = msg.data.pluginMessage.themes;
+  document.getElementById("themesJSON").value = JSON.stringify(themes);
+   //console.log(themes);
+
+    parent.innerHTML = '';
+
+    let wrap;
+    let themeButton;
+    let name;
+    let delButton;
+
+    for(let i of Object.keys(themes)) {
+
+      wrap = document.createElement("div");
+      wrap.id = i;
+
+      themeButton = document.createElement("button");
+      themeButton.class = "theme";
+      themeButton.onclick = themeBtnOnclick;
+      name = document.createTextNode(i);
+      themeButton.appendChild(name);
+
+      delButton = document.createElement("button");
+      delButton.class = "delete";
+      delButton.onclick = themeBtnOnclick;
+      name = document.createTextNode("Delete");
+      delButton.appendChild(name);
+
+      wrap.appendChild(themeButton);
+      wrap.appendChild(delButton);
+
+      parent.appendChild(wrap);
+    }
+}
+
 
 onmessage = (msg) => {
-  console.log("received a msg: " + msg.data.pluginMessage.type);
+
   if (msg.data.pluginMessage.type === "test") {
-    console.log("test");
+    //console.log("test");
     document.getElementById("currentTheme").innerText = "Current Theme: Light";
   }
+
+  else if (msg.data.pluginMessage.type === "loadThemes") {
+    loadThemes(msg);    
+  }
+
 }
 </script>
