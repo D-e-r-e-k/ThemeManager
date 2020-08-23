@@ -19,6 +19,8 @@
     "url-loader": "^4.1.0"
   },
   "dependencies": {
-    "figma-plugin-ds": "^0.1.8"
+    "cli": "^1.0.1",
+    "figma-plugin-ds": "^0.1.8",
+    "webpack": "^3.12.0"
   }
 }
