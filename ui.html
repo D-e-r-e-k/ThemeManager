@@ -1,7 +1,7 @@
 <h2>No Hardcode Prototype</h2>
 
-<button id="saveCurrent">Save Current Theme</button>
 <input type="text" id="themeName">
+<button id="saveCurrent">Save Current Theme</button>
 <p id="savedThemes">Saved Themes </p>
 
 <div id="themes">
@@ -25,15 +25,27 @@
 // document.getElementById('cancel').onclick = () => {
 //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
 // }
-let themes = "{}";
+let themes = {};
+let imgs = {};
+let workingTheme;
 
 document.getElementById("saveCurrent").onclick = () => {
-  let themeName = document.getElementById("themeName").value;
+  let themeName = document.getElementById("themeName").value.trim();
+  if (themeName.trim() === "") {
+    for(let i=0; ; i++) {
+      themeName = "Untitled Theme " + i;
+      if(!themes[themeName]) {
+        break;
+      }
+    }
+  }
   parent.postMessage( { pluginMessage: { type: 'saveCurrent', name: themeName} }, '*');
 }
 
 document.getElementById("saveToClipboard").onclick = () => {
-  document.getElementById("themesJSON").value = JSON.stringify(themes);
+  //console.log(imgs[0]);
+  //console.log(JSON.stringify(Array.from(imgs[0])));
+  document.getElementById("themesJSON").value = JSON.stringify({savedThemes: themes, savedImgs: imgs});
   let source = document.getElementById("themesJSON");
   source.select();
   document.execCommand("copy");
@@ -42,6 +54,7 @@ document.getElementById("saveToClipboard").onclick = () => {
 document.getElementById("importFromClipboard").onclick = () => {
   let source = document.getElementById("importThemes").value;
   parent.postMessage( { pluginMessage: { type: 'importThemes', value: source} }, '*');
+  document.getElementById("importThemes").value = "";
 }
 
 let themeBtnOnclick = () => {
@@ -55,7 +68,11 @@ let themeBtnOnclick = () => {
 let loadThemes = (msg) => {
   let parent = document.getElementById("themes");
   themes = msg.data.pluginMessage.themes;
-  document.getElementById("themesJSON").value = JSON.stringify(themes);
+  imgs = msg.data.pluginMessage.imgs;
+  workingTheme = msg.data.pluginMessage.working;
+
+  document.getElementById("savedThemes").innerHTML = "Current Theme: " + workingTheme;
+  document.getElementById("themesJSON").value = JSON.stringify({savedThemes: themes, savedImgs: imgs});
    //console.log(themes);
 
     parent.innerHTML = '';
@@ -77,27 +94,29 @@ let loadThemes = (msg) => {
       themeButton.appendChild(name);
 
       delButton = document.createElement("button");
-      delButton.class = "delete";
       delButton.onclick = themeBtnOnclick;
-      name = document.createTextNode("Delete");
-      delButton.appendChild(name);
 
+      if(i != workingTheme){   
+        delButton.class = "delete";   
+        name = document.createTextNode("Delete");
+        
+      }else {
+        delButton.class = "update";
+        name = document.createTextNode("Save Changes");
+        
+      }
+
+      delButton.appendChild(name);
       wrap.appendChild(themeButton);
       wrap.appendChild(delButton);
-
+      
       parent.appendChild(wrap);
     }
 }
 
 
 onmessage = (msg) => {
-
-  if (msg.data.pluginMessage.type === "test") {
-    //console.log("test");
-    document.getElementById("currentTheme").innerText = "Current Theme: Light";
-  }
-
-  else if (msg.data.pluginMessage.type === "loadThemes") {
+  if (msg.data.pluginMessage.type === "loadThemes") {
     loadThemes(msg);    
   }
 

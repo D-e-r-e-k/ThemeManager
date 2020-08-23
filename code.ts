@@ -13,18 +13,9 @@ figma.showUI(__html__);
 // posted message.
 
 
-// Hard coded themes.
-const TOPOSLIGHT: string =
-  '"Topos Light":[{"name":"backgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"primaryColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"accentColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.3450980484485626,"g":0.33725491166114807,"b":0.8392156958580017}}]},{"name":"unselectedColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"lightColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"bottomBarColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"dialogBackgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"cardColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"textInputFillColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"textColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"primaryTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"accentTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"descriptiveTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.5568627715110779,"g":0.5568627715110779,"b":0.5764706134796143}}]},{"name":"placeholderTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.6823529601097107,"g":0.6823529601097107,"b":0.6392157077789307}}]},{"name":"KCardBorder","paints":[{"type":"SOLID","visible":true,"opacity":0.05000000074505806,"blendMode":"NORMAL","color":{"r":0,"g":0,"b":0}}]}]'
-;
-
-const TOPOSDARK: string =
-  '"Topos Dark":[{"name":"backgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.08235294371843338,"g":0.08235294371843338,"b":0.08235294371843338}}]},{"name":"primaryColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.20392157137393951,"g":0.20392157137393951,"b":0.20392157137393951}}]},{"name":"accentColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.3686274588108063,"g":0.3607843220233917,"b":0.9019607901573181}}]},{"name":"unselectedColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.15294118225574493,"g":0.15294118225574493,"b":0.15294118225574493}}]},{"name":"lightColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.15294118225574493,"g":0.15294118225574493,"b":0.15294118225574493}}]},{"name":"bottomBarColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"dialogBackgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.125490203499794,"g":0.125490203499794,"b":0.125490203499794}}]},{"name":"cardColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.125490203499794,"g":0.125490203499794,"b":0.125490203499794}}]},{"name":"textInputFillColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1568627506494522,"g":0.1568627506494522,"b":0.1568627506494522}}]},{"name":"textColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.7333333492279053,"g":0.7333333492279053,"b":0.7333333492279053}}]},{"name":"primaryTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.7333333492279053,"g":0.7333333492279053,"b":0.7333333492279053}}]},{"name":"accentTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"descriptiveTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.4941176474094391,"g":0.4941176474094391,"b":0.5137255191802979}}]},{"name":"placeholderTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.45490196347236633,"g":0.45490196347236633,"b":0.45490196347236633}}]},{"name":"KCardBorder","paints":[{"type":"SOLID","visible":true,"opacity":0.05000000074505806,"blendMode":"NORMAL","color":{"r":0,"g":0,"b":0}}]}]'
-;
-
-const TESTDATA: string = "{" + TOPOSLIGHT + "," + TOPOSDARK + "}";
-//figma.root.setPluginData("themes", TESTDATA);
-//figma.root.setPluginData("themes", '');
+figma.root.setPluginData("themes", "");
+figma.root.setPluginData("savedImgs", '');
+figma.root.setPluginData("workingTheme", '');
 
 
 interface BasicPaint {
@@ -39,13 +30,28 @@ interface Theme {
 
 // Load saved themes
 let savedThemes = {};
+let savedImgs = {};
+let workingTheme = '';
 //savedThemes = JSON.parse(TESTDATA);
-let savedThemesJSON: string = figma.root.getPluginData("themes")
+let savedThemesJSON: string = figma.root.getPluginData("themes");
+let savedImgsJSON: string = figma.root.getPluginData("savedImgs");
+let savedWorkingTheme: string = figma.root.getPluginData("workingTheme");
 if(savedThemesJSON) {
   savedThemes = JSON.parse(savedThemesJSON);
 }
-figma.ui.postMessage( {type: "loadThemes", themes: savedThemes} );
-//console.log(JSON.stringify(savedThemes));
+if(savedImgsJSON) {
+  savedImgs = JSON.parse(savedImgsJSON);
+}
+// for(let i of savedImgs) {
+//   figma.createImage(i);
+// }
+if(savedWorkingTheme) {
+  workingTheme = savedWorkingTheme;
+}
+
+
+figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+
 
 let stringifyPaintStyle = function(source: PaintStyle): string {
   let result: string = "{";
@@ -62,15 +68,39 @@ for (let i of source.paints) {
   return result;
 }
 
-let getLocalTheme = function(): string {
+let getLocalTheme = async(): Promise<string> => {
   let localPaints: PaintStyle[] = figma.getLocalPaintStyles();
   let result: string = "[";
   for (let i of localPaints) {
+    for(let j of i.paints) {
+        if(j.type === "IMAGE") {
+          var imgHash: string = j.imageHash;
+          let image = figma.getImageByHash(imgHash);
+
+          // image.getBytesAsync().then((imgBytes) => {
+          //   if(!savedImgs[imgHash]) {
+          //     savedImgs[imgHash] = Array.from(imgBytes);
+          //     console.log(savedImgs);
+          //     // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+              
+          //   }
+          // });
+
+          let imgBytes = await image.getBytesAsync();
+          if(!savedImgs[imgHash]) {
+            savedImgs[imgHash] = Array.from(imgBytes);
+            //console.log(savedImgs);
+            // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+                
+           }
+        }    
+    }
     result += stringifyPaintStyle(i) + ",";
   }
+  figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+  //console.log("savedImgs num: " + Object.keys(savedImgs).length);
   result = result.slice(0, -1);
   result += "]";
-  //console.log(result);
   //figma.root.setPluginData(name, result);
   return result;
 }
@@ -93,33 +123,69 @@ let applyTheme = function(msg): void {
         tempPaintStyle.paints = i.paints;
       }
     }
+    workingTheme = msg.name;
+    figma.root.setPluginData("workingTheme", workingTheme);
+    figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
 }
 
-let saveCurrent = function(msg): void {
-  savedThemes[msg.name] = JSON.parse(getLocalTheme());
+let saveCurrent = async(msg): Promise<void> => {
+  let saving = figma.notify("Saving current color theme...");
+  savedThemes[msg.name] = JSON.parse(await getLocalTheme());
+  workingTheme = msg.name;
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes} );
+  figma.root.setPluginData("workingTheme", workingTheme);
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+  saving.cancel();
+  figma.notify("Current color theme saved!", {timeout: 2000});
 }
 
 let deleteTheme = function(msg): void {
   delete savedThemes[msg.name];
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes} );
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
 }
 
 let importThemes = function(msg): void {
-  let source = JSON.parse(msg.value);
-  for(let i of Object.keys(source)){
-    savedThemes[i] = source[i];
+  let source;
+  try {
+    source = JSON.parse(msg.value);
+  } catch(err) {
+    figma.notify("Incomplete JSON expression.");
+    return;
   }
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes} );
+
+  try {
+    for(let i of Object.keys(source.savedThemes)) {
+      savedThemes[i] = source.savedThemes[i];
+    }
+
+    for(let i of Object.keys(source.savedImgs)) {  
+      let img: Uint8Array = Uint8Array.from(source.savedImgs[i]);
+      if(!savedImgs[i]) {   
+        savedImgs[i] = source.savedImgs[i];
+        figma.createImage(img);
+        //console.log("created img");
+      }
+    }
+  } catch(err) {
+    figma.notify("Invalid color theme profile.");
+    return;
+  }
+  //let sourceSavedImgs = Uint8Array.from(source.savedImgs);
+  //source.savedImgs = sourceSavedImgs;
+
+  
+  figma.root.setPluginData("themes", JSON.stringify(savedThemes));
+  figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+  figma.notify("Color theme(s) import complete!", {timeout: 4000});
 }
 
 
 figma.ui.onmessage = msg => {
   // One way of distinguishing between different types of messages sent from
   // your HTML page is to use an object with a "type" property like this.
-  //console.log("received msg: " + msg.type);
+
   // if (msg.type === 'create-rectangles') {
   //   const nodes: SceneNode[] = [];
   //   for (let i = 0; i < msg.count; i++) {
@@ -134,7 +200,7 @@ figma.ui.onmessage = msg => {
   // }
 
   if (msg.type === 'theme') {
-    //console.log(savedThemes[msg.id]);
+
     applyTheme(msg);
   }
 
@@ -143,12 +209,16 @@ figma.ui.onmessage = msg => {
   }
 
   else if (msg.type === "delete") {
-    //console.log("delete: "+msg.name);
+  
     deleteTheme(msg);
   }
 
   else if (msg.type === "importThemes") {
     importThemes(msg);
+  }
+
+  else if (msg.type === "update") {
+    saveCurrent(msg);
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will

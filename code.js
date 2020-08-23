@@ -1,5 +1,14 @@
 // This plugin will open a modal to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // This file holds the main code for the plugins. It has access to the *document*.
 // You can access browser APIs in the <script> tag inside "ui.html" which has a
 // full browser environment (see documentation).
@@ -8,19 +17,30 @@ figma.showUI(__html__);
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
-// Hard coded themes.
-const TOPOSLIGHT = '"Topos Light":[{"name":"backgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"primaryColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"accentColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.3450980484485626,"g":0.33725491166114807,"b":0.8392156958580017}}]},{"name":"unselectedColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"lightColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"bottomBarColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"dialogBackgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"cardColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"textInputFillColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"textColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"primaryTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"accentTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":1,"g":1,"b":1}}]},{"name":"descriptiveTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.5568627715110779,"g":0.5568627715110779,"b":0.5764706134796143}}]},{"name":"placeholderTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.6823529601097107,"g":0.6823529601097107,"b":0.6392157077789307}}]},{"name":"KCardBorder","paints":[{"type":"SOLID","visible":true,"opacity":0.05000000074505806,"blendMode":"NORMAL","color":{"r":0,"g":0,"b":0}}]}]';
-const TOPOSDARK = '"Topos Dark":[{"name":"backgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.08235294371843338,"g":0.08235294371843338,"b":0.08235294371843338}}]},{"name":"primaryColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.20392157137393951,"g":0.20392157137393951,"b":0.20392157137393951}}]},{"name":"accentColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.3686274588108063,"g":0.3607843220233917,"b":0.9019607901573181}}]},{"name":"unselectedColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.15294118225574493,"g":0.15294118225574493,"b":0.15294118225574493}}]},{"name":"lightColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.15294118225574493,"g":0.15294118225574493,"b":0.15294118225574493}}]},{"name":"bottomBarColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1411764770746231,"g":0.1411764770746231,"b":0.1411764770746231}}]},{"name":"dialogBackgroundColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.125490203499794,"g":0.125490203499794,"b":0.125490203499794}}]},{"name":"cardColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.125490203499794,"g":0.125490203499794,"b":0.125490203499794}}]},{"name":"textInputFillColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.1568627506494522,"g":0.1568627506494522,"b":0.1568627506494522}}]},{"name":"textColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.7333333492279053,"g":0.7333333492279053,"b":0.7333333492279053}}]},{"name":"primaryTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.7333333492279053,"g":0.7333333492279053,"b":0.7333333492279053}}]},{"name":"accentTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.9411764740943909,"g":0.9411764740943909,"b":0.9411764740943909}}]},{"name":"descriptiveTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.4941176474094391,"g":0.4941176474094391,"b":0.5137255191802979}}]},{"name":"placeholderTextColor","paints":[{"type":"SOLID","visible":true,"opacity":1,"blendMode":"NORMAL","color":{"r":0.45490196347236633,"g":0.45490196347236633,"b":0.45490196347236633}}]},{"name":"KCardBorder","paints":[{"type":"SOLID","visible":true,"opacity":0.05000000074505806,"blendMode":"NORMAL","color":{"r":0,"g":0,"b":0}}]}]';
-const TESTDATA = "{" + TOPOSLIGHT + "," + TOPOSDARK + "}";
+figma.root.setPluginData("themes", "");
+figma.root.setPluginData("savedImgs", '');
+figma.root.setPluginData("workingTheme", '');
 // Load saved themes
 let savedThemes = {};
+let savedImgs = {};
+let workingTheme = '';
 //savedThemes = JSON.parse(TESTDATA);
 let savedThemesJSON = figma.root.getPluginData("themes");
+let savedImgsJSON = figma.root.getPluginData("savedImgs");
+let savedWorkingTheme = figma.root.getPluginData("workingTheme");
 if (savedThemesJSON) {
     savedThemes = JSON.parse(savedThemesJSON);
 }
-figma.ui.postMessage({ type: "loadThemes", themes: savedThemes });
-//console.log(JSON.stringify(savedThemes));
+if (savedImgsJSON) {
+    savedImgs = JSON.parse(savedImgsJSON);
+}
+// for(let i of savedImgs) {
+//   figma.createImage(i);
+// }
+if (savedWorkingTheme) {
+    workingTheme = savedWorkingTheme;
+}
+figma.ui.postMessage({ type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme });
 let stringifyPaintStyle = function (source) {
     let result = "{";
     result += "\"name\":\"" + source.name + "\",";
@@ -32,18 +52,38 @@ let stringifyPaintStyle = function (source) {
     result += "]}";
     return result;
 };
-let getLocalTheme = function () {
+let getLocalTheme = () => __awaiter(this, void 0, void 0, function* () {
     let localPaints = figma.getLocalPaintStyles();
     let result = "[";
     for (let i of localPaints) {
+        for (let j of i.paints) {
+            if (j.type === "IMAGE") {
+                var imgHash = j.imageHash;
+                let image = figma.getImageByHash(imgHash);
+                // image.getBytesAsync().then((imgBytes) => {
+                //   if(!savedImgs[imgHash]) {
+                //     savedImgs[imgHash] = Array.from(imgBytes);
+                //     console.log(savedImgs);
+                //     // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+                //   }
+                // });
+                let imgBytes = yield image.getBytesAsync();
+                if (!savedImgs[imgHash]) {
+                    savedImgs[imgHash] = Array.from(imgBytes);
+                    //console.log(savedImgs);
+                    // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+                }
+            }
+        }
         result += stringifyPaintStyle(i) + ",";
     }
+    figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+    //console.log("savedImgs num: " + Object.keys(savedImgs).length);
     result = result.slice(0, -1);
     result += "]";
-    //console.log(result);
     //figma.root.setPluginData(name, result);
     return result;
-};
+});
 let applyTheme = function (msg) {
     let localPaints = figma.getLocalPaintStyles();
     let exist;
@@ -62,28 +102,61 @@ let applyTheme = function (msg) {
             tempPaintStyle.paints = i.paints;
         }
     }
+    workingTheme = msg.name;
+    figma.root.setPluginData("workingTheme", workingTheme);
+    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme });
 };
-let saveCurrent = function (msg) {
-    savedThemes[msg.name] = JSON.parse(getLocalTheme());
+let saveCurrent = (msg) => __awaiter(this, void 0, void 0, function* () {
+    let saving = figma.notify("Saving current color theme...");
+    savedThemes[msg.name] = JSON.parse(yield getLocalTheme());
+    workingTheme = msg.name;
     figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes });
-};
+    figma.root.setPluginData("workingTheme", workingTheme);
+    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme });
+    saving.cancel();
+    figma.notify("Current color theme saved!", { timeout: 2000 });
+});
 let deleteTheme = function (msg) {
     delete savedThemes[msg.name];
     figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes });
+    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme });
 };
 let importThemes = function (msg) {
-    let source = JSON.parse(msg.value);
-    for (let i of Object.keys(source)) {
-        savedThemes[i] = source[i];
+    let source;
+    try {
+        source = JSON.parse(msg.value);
     }
-    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes });
+    catch (err) {
+        figma.notify("Incomplete JSON expression.");
+        return;
+    }
+    try {
+        for (let i of Object.keys(source.savedThemes)) {
+            savedThemes[i] = source.savedThemes[i];
+        }
+        for (let i of Object.keys(source.savedImgs)) {
+            let img = Uint8Array.from(source.savedImgs[i]);
+            if (!savedImgs[i]) {
+                savedImgs[i] = source.savedImgs[i];
+                figma.createImage(img);
+                //console.log("created img");
+            }
+        }
+    }
+    catch (err) {
+        figma.notify("Invalid color theme profile.");
+        return;
+    }
+    //let sourceSavedImgs = Uint8Array.from(source.savedImgs);
+    //source.savedImgs = sourceSavedImgs;
+    figma.root.setPluginData("themes", JSON.stringify(savedThemes));
+    figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
+    figma.ui.postMessage({ type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme });
+    figma.notify("Color theme(s) import complete!", { timeout: 4000 });
 };
 figma.ui.onmessage = msg => {
     // One way of distinguishing between different types of messages sent from
     // your HTML page is to use an object with a "type" property like this.
-    //console.log("received msg: " + msg.type);
     // if (msg.type === 'create-rectangles') {
     //   const nodes: SceneNode[] = [];
     //   for (let i = 0; i < msg.count; i++) {
@@ -97,18 +170,19 @@ figma.ui.onmessage = msg => {
     //   figma.viewport.scrollAndZoomIntoView(nodes);
     // }
     if (msg.type === 'theme') {
-        //console.log(savedThemes[msg.id]);
         applyTheme(msg);
     }
     else if (msg.type === 'saveCurrent') {
         saveCurrent(msg);
     }
     else if (msg.type === "delete") {
-        //console.log("delete: "+msg.name);
         deleteTheme(msg);
     }
     else if (msg.type === "importThemes") {
         importThemes(msg);
+    }
+    else if (msg.type === "update") {
+        saveCurrent(msg);
     }
     // Make sure to close the plugin when you're done. Otherwise the plugin will
     // keep running, which shows the cancel button at the bottom of the screen.
