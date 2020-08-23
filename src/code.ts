@@ -15,7 +15,7 @@ figma.showUI(__html__);
 
 figma.root.setPluginData("themes", "");
 figma.root.setPluginData("savedImgs", '');
-figma.root.setPluginData("workingTheme", '');
+figma.root.setPluginData("savedWorkingTheme", '');
 
 
 interface BasicPaint {
@@ -31,11 +31,11 @@ interface Theme {
 // Load saved themes
 let savedThemes = {};
 let savedImgs = {};
-let workingTheme = '';
+let savedWorkingTheme = '';
 //savedThemes = JSON.parse(TESTDATA);
 let savedThemesJSON: string = figma.root.getPluginData("themes");
 let savedImgsJSON: string = figma.root.getPluginData("savedImgs");
-let savedWorkingTheme: string = figma.root.getPluginData("workingTheme");
+let savedDataWorkingTheme: string = figma.root.getPluginData("savedWorkingTheme");
 if(savedThemesJSON) {
   savedThemes = JSON.parse(savedThemesJSON);
 }
@@ -45,12 +45,12 @@ if(savedImgsJSON) {
 // for(let i of savedImgs) {
 //   figma.createImage(i);
 // }
-if(savedWorkingTheme) {
-  workingTheme = savedWorkingTheme;
+if(savedDataWorkingTheme) {
+  savedWorkingTheme = savedDataWorkingTheme;
 }
 
 
-figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
 
 
 let stringifyPaintStyle = function(source: PaintStyle): string {
@@ -123,18 +123,18 @@ let applyTheme = function(msg): void {
         tempPaintStyle.paints = i.paints;
       }
     }
-    workingTheme = msg.name;
-    figma.root.setPluginData("workingTheme", workingTheme);
-    figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+    savedWorkingTheme = msg.name;
+    figma.root.setPluginData("savedWorkingTheme", savedWorkingTheme);
+    figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
 }
 
 let saveCurrent = async(msg): Promise<void> => {
   let saving = figma.notify("Saving current color theme...");
   savedThemes[msg.name] = JSON.parse(await getLocalTheme());
-  workingTheme = msg.name;
+  savedWorkingTheme = msg.name;
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-  figma.root.setPluginData("workingTheme", workingTheme);
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+  figma.root.setPluginData("savedWorkingTheme", savedWorkingTheme);
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
   saving.cancel();
   figma.notify("Current color theme saved!", {timeout: 2000});
 }
@@ -142,7 +142,7 @@ let saveCurrent = async(msg): Promise<void> => {
 let deleteTheme = function(msg): void {
   delete savedThemes[msg.name];
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
 }
 
 let importThemes = function(msg): void {
@@ -177,7 +177,7 @@ let importThemes = function(msg): void {
   
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
   figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: workingTheme} );
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
   figma.notify("Color theme(s) import complete!", {timeout: 4000});
 }
 
