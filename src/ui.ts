@@ -14,7 +14,7 @@ let themes = {};
 let imgs = {};
 let workingTheme;
 
-document.getElementById("saveCurrent").onclick = () => {
+let saveCurrentHandler = () => {
   let themeName = document.getElementById("themeName").value.trim();
   if (themeName.trim() === "") {
     for(let i=0; ; i++) {
@@ -26,8 +26,11 @@ document.getElementById("saveCurrent").onclick = () => {
   }
   document.getElementById("themeName").value = "";
   parent.postMessage( { pluginMessage: { type: 'saveCurrent', name: themeName} }, '*');
-  
+  return false;
 }
+
+document.getElementById("saveCurrent").onclick =  saveCurrentHandler;
+document.getElementById("themeNameForm").onsubmit = saveCurrentHandler;
 
 document.getElementById("saveToClipboard").onclick = () => {
   //console.log(imgs[0]);
@@ -38,11 +41,15 @@ document.getElementById("saveToClipboard").onclick = () => {
   document.execCommand("copy");
 }
 
-document.getElementById("importFromClipboard").onclick = () => {
+let importFromClipboardHandler = () => {
   let source = document.getElementById("importThemes").value;
   parent.postMessage( { pluginMessage: { type: 'importThemes', value: source} }, '*');
   document.getElementById("importThemes").value = "";
+  return false;
 }
+
+document.getElementById("importFromClipboard").onclick = importFromClipboardHandler;
+document.getElementById("importThemesForm").onsubmit = importFromClipboardHandler;
 
 let themeBtnOnclick = () => {
   let targetButton = event.target;
