@@ -1,4 +1,4 @@
-// This plugin can
+// This plugin is created to manage multiple color themes in one Figma design file. Enables save and switch between different color palettes. Good for developing design systems, projects require multiple color themes (like dark mode and light mode), and realizing your color ambitious.
 
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__);
