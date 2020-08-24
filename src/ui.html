@@ -1,21 +1,69 @@
+<style>
 
-<h2>No Hardcode Prototype</h2>
+  ::-webkit-scrollbar {
+  margin: 0px 2px;
+  width: 6px;
+  }
 
-<input type="text" id="themeName">
-<button id="saveCurrent">Save Current Theme</button>
-<p id="savedThemes">Saved Themes </p>
+  /* Track */
+  ::-webkit-scrollbar-track {
+  background: #ffffff;
+  opacity: 0;
+  }
 
-<div id="themes">
-  <p id="loading">Loading...</p>
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #B3B3B3;
+    opacity: 1;
+    width: 6px;
+    border-radius: 3px;
+  }
+  .themeDiv .icon-button {
+    visibility: hidden;
+  }
+
+  .themeDiv:hover .icon-button {
+    visibility: visible;
+  }
+
+
+</style>
+
+<body style="margin: 0px; display:flex; flex-direction: column; justify-content: flex-start;">
+
+
+<h5 style="margin: 16px">Local Color Themes</h5>
+  <div style="padding: 0px 16px 8px 16px; display:flex; flex-direction: row;">
+    <input id="themeName" type="input" class="input__field" placeholder="Save current color theme">
+    <div id="saveCurrent" class="icon-button">
+      <div class="icon icon--plus"></div>
+    </div>
+  </div>
+
+<div id="themes" style="
+display:flex; 
+flex-direction: column; 
+height: 248px; 
+border-bottom: 1px solid #e5e5e5; 
+overflow: auto;
+">
+  <p id="loading" style="padding: 0px 16px; opacity: .3;">No local theme yet</p>
 </div>
 
-<p id="importExport">Import&Export Themes</p>
-<input type="text" id="themesJSON">
-<button id="saveToClipboard">Save Themes to Clipboard</button>
-<input type="text" id="importThemes">
-<button id="importFromClipboard">Import Themes from Clipboard</button>
+<h5 style="margin: 16px">Import and Export Themes</h5>
+<div style="padding: 0px 16px 8px 16px; display:flex; flex-direction: row;">
+  <input id="themesJSON" type="input" class="input__field" placeholder="Click the button on the right to copy">
+  <div id="saveToClipboard" class="icon-button">
+    <div class="icon icon--draft"></div>
+  </div>
+</div>
+<div style="padding: 8px 16px 8px 16px; display:flex; flex-direction: row;">
+  <input id="importThemes" type="input" class="input__field" placeholder="Paste color themes here">
+  <div id="importFromClipboard" class="icon-button">
+    <div class="icon icon--check"></div>
+  </div>
+</div>
 
-<script>
 
 
-</script>
+</body>

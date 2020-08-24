@@ -7,15 +7,16 @@
 
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__);
+figma.ui.resize(300,480);
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 
 
-figma.root.setPluginData("themes", "");
-figma.root.setPluginData("savedImgs", '');
-figma.root.setPluginData("savedWorkingTheme", '');
+//figma.root.setPluginData("themes", "");
+//figma.root.setPluginData("savedImgs", '');
+//figma.root.setPluginData("savedWorkingTheme", '');
 
 
 interface BasicPaint {
@@ -49,8 +50,9 @@ if(savedDataWorkingTheme) {
   savedWorkingTheme = savedDataWorkingTheme;
 }
 
-
-figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
+if(Object.keys(savedThemes).length > 0) {
+  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
+}
 
 
 let stringifyPaintStyle = function(source: PaintStyle): string {
@@ -177,7 +179,9 @@ let importThemes = function(msg): void {
   
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
   figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
-  figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
+  if(Object.keys(savedThemes).length > 0) {
+    figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
+  }
   figma.notify("Color theme(s) import complete!", {timeout: 4000});
 }
 
