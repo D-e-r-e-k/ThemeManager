@@ -1,19 +1,12 @@
-// This plugin will open a modal to prompt the user to enter a number, and
-// it will then create that many rectangles on the screen.
-
-// This file holds the main code for the plugins. It has access to the *document*.
-// You can access browser APIs in the <script> tag inside "ui.html" which has a
-// full browser environment (see documentation).
+// This plugin can
 
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__);
 figma.ui.resize(300,480);
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
 
 
+// Clear saved data for developing purpose
 //figma.root.setPluginData("themes", "");
 //figma.root.setPluginData("savedImgs", '');
 //figma.root.setPluginData("savedWorkingTheme", '');
@@ -33,7 +26,6 @@ interface Theme {
 let savedThemes = {};
 let savedImgs = {};
 let savedWorkingTheme = '';
-//savedThemes = JSON.parse(TESTDATA);
 let savedThemesJSON: string = figma.root.getPluginData("themes");
 let savedImgsJSON: string = figma.root.getPluginData("savedImgs");
 let savedDataWorkingTheme: string = figma.root.getPluginData("savedWorkingTheme");
@@ -43,13 +35,9 @@ if(savedThemesJSON) {
 if(savedImgsJSON) {
   savedImgs = JSON.parse(savedImgsJSON);
 }
-// for(let i of savedImgs) {
-//   figma.createImage(i);
-// }
 if(savedDataWorkingTheme) {
   savedWorkingTheme = savedDataWorkingTheme;
 }
-
 if(Object.keys(savedThemes).length > 0) {
   figma.ui.postMessage( {type: "loadThemes", themes: savedThemes, imgs: savedImgs, working: savedWorkingTheme} );
 }
@@ -78,32 +66,17 @@ let getLocalTheme = async(): Promise<string> => {
         if(j.type === "IMAGE") {
           var imgHash: string = j.imageHash;
           let image = figma.getImageByHash(imgHash);
-
-          // image.getBytesAsync().then((imgBytes) => {
-          //   if(!savedImgs[imgHash]) {
-          //     savedImgs[imgHash] = Array.from(imgBytes);
-          //     console.log(savedImgs);
-          //     // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
-              
-          //   }
-          // });
-
           let imgBytes = await image.getBytesAsync();
           if(!savedImgs[imgHash]) {
-            savedImgs[imgHash] = Array.from(imgBytes);
-            //console.log(savedImgs);
-            // figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
-                
+            savedImgs[imgHash] = Array.from(imgBytes);   
            }
         }    
     }
     result += stringifyPaintStyle(i) + ",";
   }
   figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
-  //console.log("savedImgs num: " + Object.keys(savedImgs).length);
   result = result.slice(0, -1);
   result += "]";
-  //figma.root.setPluginData(name, result);
   return result;
 }
 
@@ -166,16 +139,12 @@ let importThemes = function(msg): void {
       if(!savedImgs[i]) {   
         savedImgs[i] = source.savedImgs[i];
         figma.createImage(img);
-        //console.log("created img");
       }
     }
   } catch(err) {
     figma.notify("Invalid color theme profile.");
     return;
   }
-  //let sourceSavedImgs = Uint8Array.from(source.savedImgs);
-  //source.savedImgs = sourceSavedImgs;
-
   
   figma.root.setPluginData("themes", JSON.stringify(savedThemes));
   figma.root.setPluginData("savedImgs", JSON.stringify(savedImgs));
@@ -187,21 +156,6 @@ let importThemes = function(msg): void {
 
 
 figma.ui.onmessage = msg => {
-  // One way of distinguishing between different types of messages sent from
-  // your HTML page is to use an object with a "type" property like this.
-
-  // if (msg.type === 'create-rectangles') {
-  //   const nodes: SceneNode[] = [];
-  //   for (let i = 0; i < msg.count; i++) {
-  //     const rect = figma.createRectangle();
-  //     rect.x = i * 150;
-  //     rect.fills = [{type: 'SOLID', color: {r: 1, g: 0.5, b: 0}}];
-  //     figma.currentPage.appendChild(rect);
-  //     nodes.push(rect);
-  //   }
-  //   figma.currentPage.selection = nodes;
-  //   figma.viewport.scrollAndZoomIntoView(nodes);
-  // }
 
   if (msg.type === 'theme') {
 
